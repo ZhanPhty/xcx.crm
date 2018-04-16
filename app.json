@@ -1,0 +1,57 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/login/login",
+    "pages/pageClue/pageClue",
+    "pages/addClue/addClue",
+    "pages/pageClue/pageClueDetail",
+    "pages/saleRecord/addSaleRecord",
+    "pages/saleRecord/saleRecordDetail",
+    "pages/selectContact/contactList",
+    "pages/pageClient/client",
+    "pages/pageClient/clientDetail",
+    "pages/personal/personalCenter",
+    "pages/personal/extension",
+    "pages/pageClient/clientAddress",
+    "pages/pageClient/clientMainPro",
+    "pages/pageClue/changeClue",
+    "pages/addClient/addClient"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#306ebf",
+    "navigationBarTitleText": "CRM",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#377ade",
+    "backgroundColor": "#fafafa",
+    "list": [
+      {
+        "pagePath": "pages/pageClue/pageClue",
+        "text": "销售线索",
+        "iconPath": "assets/images/tabar_clue.png",
+        "selectedIconPath": "assets/images/tabar_clue_select.png"
+      },
+      {
+        "pagePath": "pages/pageClient/client",
+        "text": "客户",
+        "iconPath": "assets/images/tabar_client.png",
+        "selectedIconPath": "assets/images/tabar_client_select.png"
+      },
+      {
+        "pagePath": "pages/personal/personalCenter",
+        "text": "我的",
+        "iconPath": "assets/images/tabar_user.png",
+        "selectedIconPath": "assets/images/tabar_user_select.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 30000,
+    "downloadFile": 30000
+  }
+}

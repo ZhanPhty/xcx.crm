@@ -1,0 +1,36 @@
+<!-- 主营产品 -->
+<!-- <template is="detailMainPro" data="{{list: mainBuisList}}" /> -->
+
+<template name="detailMainPro">
+  <block wx:for="{{list}}" wx:key="mainproId">
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_text">
+          <view class="ui-font-17">
+            <text class="ui-mr12" wx:if="{{item.varietyName != ''}}">{{item.varietyName}}</text>
+            <text class="ui-mr12" wx:if="{{item.qualitySurface != ''}}">{{item.qualitySurface}}</text>
+            <text class="ui-mr12" wx:if="{{item.thick != ''}}">{{item.thick}}</text>
+            <text class="ui-mr12" wx:if="{{item.referThickMin != ''}}">{{item.referThickMin}}-{{item.referThickMax}}</text>
+            <text class="ui-mr12" wx:if="{{item.widthMin != ''}}">{{item.widthMin}}-{{item.widthMax}}</text>
+            <text class="ui-mr12">{{item.mnfctNames}}</text>
+            <text class="ui-mr12">{{item.areaNames}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="weui-panel__ft tran-border-top">
+        <view class="weui-cell ">
+          <view class="weui-cell__bd">
+          </view>
+          <view class="weui-cell__ft">
+            <view class="ui-pw10 ui-mr16 tran-inblock"  bindtap="updateMainPro" data-main-id="{{item.mainId}}" hover-class="bindtap-hover">
+              <text class="icon-bianji"></text>
+            </view>
+            <view class="ui-pw10 tran-inblock" bindtap="delMainPro" data-main-id="{{item.mainId}}" hover-class="bindtap-hover">
+              <text class="icon-shanchu"></text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</template>

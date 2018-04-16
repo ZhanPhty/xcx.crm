@@ -1,0 +1,181 @@
+<!-- 引用公共部分: head -->
+<include src="/template/common/head.wxml" />
+<import src="/template/select/select.wxml"/>
+
+<!-- template -->
+<template is="select" data="{{ ...$xcx.select.main }}"/>
+
+<!-- 内容 -->
+<view class="page__bd ui-mt12 clue-bd">
+  <form bindsubmit="submitForm" bindreset="Resetform">
+    <input name="token" hidden value="{{token}}" />
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label txt-required">姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{person}}" name="person" placeholder="请输入姓名" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label txt-required">手机</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{mobile}}" name="mobile" type="number" placeholder="请输入手机" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label txt-required">线索来源</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindClueSource" value="{{clueSourceIndex}}" range="{{clueSource}}" range-key="dictName">
+            <input hidden name="clueSource" value="{{clueSource[clueSourceIndex].dictValue}}" />
+            <view class="weui-select weui-select_in-select-after">{{clueSource[clueSourceIndex].dictName}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">电话</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{phoneNo}}" name="phoneNo" placeholder="请输入电话" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">公司</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{company}}" name="company" placeholder="请输入公司" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">职务</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{position}}" name="position" placeholder="请输入职务" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">传真</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{fax}}" name="fax" placeholder="请输入传真" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">QQ</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{qq}}" name="qq" type="number" placeholder="请输入QQ" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">邮箱</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{email}}" name="email" placeholder="请输入邮箱" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">网址</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{url}}" name="url" placeholder="请输入网址" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">联系人地址</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{address}}" name="address" placeholder="请输入地址" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">主要工作</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{mainWork}}" name="mainWork" placeholder="请输入主要工作" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">主营行业</view>
+        </view>
+        <view class="weui-cell__bd">
+          <view class="weui-cell weui-cell_access ui-pl0" bindtap="toggleMainPopup">
+            <input hidden name="tradeType" value="{{tradeType}}" />
+            <view class="weui-cell__bd">{{tradeName}}　</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+          </view>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">线索级别</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindClueLevel" value="{{clueLevelIndex}}" range="{{cluelevel}}" range-key="dictName">
+            <input hidden name="clueLevel" value="{{cluelevel[clueLevelIndex].dictValue}}" />
+            <view class="weui-select weui-select_in-select-after">{{cluelevel[clueLevelIndex].dictName}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">线索详情</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{clueDesc}}" name="clueDesc" placeholder="请输入线索详情" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">线索池</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindPoolList" value="{{poolListIndex}}" range="{{poolList}}" range-key="poolName">
+            <input hidden name="poolName" value="{{poolList[poolListIndex].poolId}}" />
+            <view class="weui-select weui-select_in-select-after">{{poolList[poolListIndex].poolName}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <input name="clueNameCard" hidden value="{{clueNameCard}}" />
+    </view>
+
+    <view class="weui-footer_fixed-bottom weui-footer_fixed-fit">
+      <button class="weui-btn weui-btn__large" type="primary" form-type="submit">保 存</button>
+    </view>
+    
+  </form>
+</view>
+
+<!-- 引用公共部分: footer -->
+<include src="/template/common/footer.wxml" />

@@ -1,0 +1,80 @@
+<!-- 
+
+/**
+ * wxml 引用模块
+ */
+<import src="/template/select/select.wxml"/>
+<template is="select" data="{{ ...$xcx.select.main }}"/>
+
+/* --------------------------------------------------------------------------------- */
+
+/**
+ * js 引用模块
+ */
+import { $select } from '../../template/xcx'
+
+/**
+ * 初始化$actionsheet
+ */
+this.selectTel(res.data.MAINBUSINESS);
+this.select.render(data.dictValue)
+
+toggleMainPopup(e) {
+  this.select.show()
+},
+selectTel(items, vals) {
+  this.select = $select.init('main', {
+    checkItems: items,
+    dictName: 'dictName',
+    dictValue: 'dictValue',
+    chosenValue: vals,
+    onChange: (e) => {
+      this.setData({
+        tradeName: e.chosenName,
+        tradeType: e.chosenValue
+      })
+    }
+  })
+}
+
+-->
+
+<template name="select">
+  <view class="weui-popup weui-popup__show {{className}}" wx:if="{{visible}}" style="z-index: 999">
+    <view class="weui-popup__mask {{animateCss[1]}}" catchtap="{{hide}}" />
+    <view class="weui-popup__bottom {{animateCss[0]}}">
+      <view class="weui-cells weui-cells_after-title weui-cells__border">
+        <view class="weui-popup__title weui-popup__title--select" wx:if="{{ titleText }}">
+          <text class="weui-popup__title--cancel" catchtap="{{hide}}">取消</text>{{ titleText }}
+        </view>
+        <view class="weui-cell weui-popup__title--chosen">
+          <view class="weui-cell__hd">已选：</view>
+          <view class="weui-cell__bd weui-popup__title--chosen_list ui-pr10 ui-ellipsis">{{chosenName}}</view>
+          <view class="weui-cell__ft weui-popup__title--chosen_list" wx:if="{{chosenName.length > 5}}">{{chosenName.length}}个</view>
+        </view>
+        <scroll-view scroll-y style="max-height: 720rpx;" scroll-top="0">
+          <view class="weui-cells weui-cells_after-title weui-cells_after_border">
+            <checkbox-group bindchange="{{checkboxChange}}">
+              <label class="weui-cell weui-media-box__left" wx:for="{{checkItems}}" wx:key="value">
+                <checkbox class="weui-check" value="{{item[dictValue]}}" checked="{{item.checked}}" />
+                <view class="weui-cell__bd {{item.checked ? 'ui-blue' : '2'}}">{{item[dictName]}}</view>
+                <view class="weui-cell__hd weui-check__hd_in-checkbox">
+                  <icon class="weui-icon-checkbox_success" type="success_no_circle" size="16" color="#377ade" wx:if="{{item.checked}}"></icon>
+                </view>
+              </label>
+            </checkbox-group>
+          </view>
+        </scroll-view>
+      </view>
+
+      <view class="weui-flex {{iPhoneX}}">
+        <view class="weui-flex__item">
+          <button class="weui-btn__large" catchtap="{{checkboxReset}}">重置</button>
+        </view>
+        <view class="weui-flex__item">
+          <button class="weui-btn__large" catchtap="{{hide}}" type="primary">确定</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>

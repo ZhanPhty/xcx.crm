@@ -1,0 +1,62 @@
+<!-- 
+
+/**
+ * wxml 引用模块
+ */
+<import src="/template/refresher/refresher.wxml"/>
+
+<view class="weui-tab__content ui-pt12 ui-pb20" style="{{ $xcx.refresher.style }}"  bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend">
+  <template is="refresher" data="{{ ...$xcx.refresher }}"/>
+  <view class="weui-cell">
+  </view>
+</view>
+
+/* --------------------------------------------------------------------------------- */
+
+/**
+ * js 引用模块
+ */
+import { $pickercity } from '../../template/xcx'
+
+/**
+ * 初始化$actionsheet
+ */
+onLoad() {
+  this.refresher = new $refresher({
+    onPulling() {
+      console.log('onPulling')
+    },
+    onRefresh() {
+      console.log('onRefresh')
+      setTimeout(() => {
+        this.events.emit(`scroll.refreshComplete`)
+      }, 1000)
+    }
+  })
+},
+touchstart(e) {
+  this.refresher.touchstart(e)
+},
+touchmove(e) {
+  this.refresher.touchmove(e)
+},
+touchend(e) {
+  this.refresher.touchend(e)
+},
+
+-->
+
+<template name="refresher">
+	<view class="weui-refresher {{ className || 'hidden' }}">
+		<view class="weui-refresher__content {{ pullingText || refreshingText ? 'weui-refresher__content--text' : '' }}">
+			<view class="weui-refresher__icon-pulling {{ disablePullingRotation ? 'weui-refresher__icon-pulling--disabled' : '' }}">
+				<text class="{{ pullingIcon || 'weui-refresher__icon--arrow-down' }}"></text>
+			</view>
+			<view class="weui-refresher__text-pulling">{{ pullingText }}</view>
+			<view class="weui-refresher__icon-refreshing">
+				<text class="{{ refreshingIcon || 'weui-refresher__icon--refresher' }}"></text>
+			</view>
+			<view class="weui-refresher__text-refreshing">{{ refreshingText }}</view>
+		</view>
+	</view>
+</template>

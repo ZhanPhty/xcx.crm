@@ -1,0 +1,70 @@
+/* pages/selectContact/contactList.wxss */
+
+.weui-cells__title {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.contact-checkbox [class^="icon-"] {
+  font-size: 38rpx;
+  color: #ddd;
+  font-weight: normal;
+  margin-right: 4px;
+}
+
+.contact-img {
+  display: block;
+  float: left;
+  height: 36px;
+  width: 36px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  background-color: #f2f2f2;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.contact-count {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 28rpx;
+  color: #666;
+  text-align: center;
+}
+
+.contact-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #fff;
+  font-size: 28rpx;
+  color: #666;
+  height: 100%;
+  text-align: center;
+  width: 24px;
+}
+
+.sidebar-view {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.sidebar-prompt {
+  position: fixed;
+  right: 30px;
+}
+
+.sidebar-prompt  [class^="icon-"] {
+  font-size: 60px;
+  opacity: .4;
+}
+
+.sidebar-prompt__txt {
+  position: absolute;
+  top: 28%;
+  left: 33%;
+  z-index: 2;
+  color: #fff;
+  font-size: 50rpx;
+}

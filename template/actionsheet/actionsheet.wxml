@@ -1,0 +1,68 @@
+<!-- 
+
+/**
+ * wxml 引用模块
+ */
+<import src="/template/actionsheet/actionsheet.wxml"/>
+<template is="actionsheet" data="{{ ...$xcx.actionsheet }}"/>
+
+/* --------------------------------------------------------------------------------- */
+
+/**
+ * js 引用模块
+ */
+import { $actionsheet } from '../../template/xcx'
+
+/**
+ * 初始化$actionsheet
+ */
+$actionsheet.init({
+  buttons: [
+    {
+      text: '菜单1'
+    },
+    {
+      text: '菜单2'
+    },
+    {
+      text: '菜单3'
+    }
+  ],
+  titleText: '这个是菜单',
+  buttonClicked(index, e) {
+    switch (index) {
+      case 0:
+        break;
+      case 1:
+        break;
+      case 2:
+        break;
+    }
+  }
+})
+
+-->
+
+<template name="actionsheet">
+  <view class="weui-popup weui-popup__show {{className}}" wx:if="{{visible}}" style="z-index: 9999">
+    <view class="weui-popup__mask {{animateCss[1]}}" catchtap="{{cancel}}" />
+    <view class="weui-popup__bottom {{animateCss[0]}}" style="background: #f2f2f2">
+      <view class="weui-cells weui-cells_after-title weui-cells__border ui-txt-center">
+        <view class="weui-popup__title" wx:if="{{ titleText }}">{{ titleText }}</view>
+        <block wx:for="{{buttons}}" wx:key="index">
+          <view class="weui-cell weui-check__label weui-media-box__left {{item.className}}" data-index="{{index}}" catchtap="{{buttonClicked}}">
+            <view class="weui-cell__bd weui-popup__list">{{item.text}}</view>
+          </view>
+        </block>
+        <view class="weui-cell weui-check__label weui-media-box__left" wx:if="{{delText != ''}}" catchtap="{{delClick}}">
+          <view class="weui-cell__bd weui-popup__list ui-red">{{delText}}</view>
+        </view>
+      </view>
+      <view class="weui-cells weui-cells_after-title weui-cells__border ui-txt-center ui-mt10 {{iPhoneX}}">
+        <view class="weui-cell weui-check__label weui-media-box__left" catchtap="{{cancel}}">
+          <view class="weui-cell__bd weui-popup__list">{{cancelText}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>

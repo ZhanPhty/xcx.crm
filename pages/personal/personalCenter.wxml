@@ -1,0 +1,38 @@
+<!-- 引用公共部分: head -->
+<include src="/template/common/head.wxml" />
+
+<!-- 列表 -->
+<view class="page__bd clue-bd ui-pt12">
+  <view class="weui-panel weui-panel_access">
+    <view class="weui-panel__bd">
+      <view class="weui-media-box weui-media-box_appmsg">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg user-img">
+          <image class="weui-media-box__thumb" src="{{privUser.thumb}}" />
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <view class="weui-media-box__title">{{privUser.userName}}</view>
+          <view class="weui-media-box__desc ui-mt8">账号：
+            <text class="ui-black">{{privUser.loginName}}</text>
+          </view>
+        </view>
+        <view class="weui-media-box__ft user-signout" bindtap="bindSignOut" hover-class="bindtap-hover">
+          <text class="icon-zhuxiao ui-font-20"></text>
+          <view class="ui-font-12">退出登录</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="weui-cells weui-cells_after-title weui-cells_after_border ui-mt16">
+    <navigator url="./extension?userId={{privUser.userId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+        <text class="icon-shengyin ui-mr8 ui-font-18" style="color:#f9787f"></text>
+      </view>
+      <view class="weui-cell__bd ui-gray-darker">商城推广</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+  </view>
+</view>
+
+<!-- 引用公共部分: footer -->
+<include src="/template/common/footer.wxml" />

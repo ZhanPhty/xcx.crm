@@ -1,0 +1,138 @@
+<!-- 引用公共部分: head -->
+<include src="/template/common/head.wxml" />
+<import src="/template/select/select.wxml"/>
+
+<!-- template -->
+<template is="select" data="{{ ...$xcx.select.main }}"/>
+
+<!-- 内容 -->
+<view class="page__bd ui-mt12 clue-bd">
+  <form bindsubmit="submitForm" bindreset="Resetform">
+    <input name="contactChangeType" value="true" hidden />
+    <input name="userId" value="{{userId}}" hidden />
+    <input name="userName" value="{{userName}}" hidden />
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label txt-required">客户名称</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{companyName}}" name="companyName" placeholder="请输入客户名称" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label txt-required">摊位号</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{firmId}}" name="firmId" placeholder="请输入摊位号" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label txt-required">客户来源</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindClientSource" value="{{clientSourceIndex}}" range="{{clientSource}}" range-key="dictName">
+            <input hidden name="clientSource" value="{{clientSource[clientSourceIndex].dictValue}}" />
+            <view class="weui-select weui-select_in-select-after">{{clientSource[clientSourceIndex].dictName}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">公司类型</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindCompanyType" value="{{companyTypeIndex}}" range="{{companyType}}" range-key="dictName">
+            <input hidden name="companyType" value="{{companyType[companyTypeIndex].dictValue}}" />
+            <view class="weui-select weui-select_in-select-after">{{companyType[companyTypeIndex].dictName}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">公司规模</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindCompanySize" value="{{companySizeIndex}}" range="{{companySize}}" range-key="dictName">
+            <input hidden name="companySize" value="{{companySize[companySizeIndex].dictValue}}" />
+            <view class="weui-select weui-select_in-select-after">{{companySize[companySizeIndex].dictName}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">主营行业</view>
+        </view>
+        <view class="weui-cell__bd">
+          <view class="weui-cell weui-cell_access ui-pl0" bindtap="toggleMainPopup">
+            <input hidden name="mainBusiness" value="{{tradeType}}" />
+            <view class="weui-cell__bd">{{tradeName}}　</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+          </view>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label txt-required">联系人姓名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{contactName}}" name="contactName" placeholder="请输入姓名" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">联系人手机号</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{contactPhone}}" name="contactPhone" type="number" placeholder="请输入手机号" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">职务</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{contactPosition}}" name="contactPosition" placeholder="请输入职务" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">主要工作</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{contactWork}}" name="contactWork" placeholder="请输入主要工作" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">联系人性别</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindContactSex" value="{{contactSexIndex}}" range="{{contactSex}}" range-key="name">
+            <input hidden name="contactSex" value="{{contactSex[contactSexIndex].value}}" />
+            <view class="weui-select weui-select_in-select-after">{{contactSex[contactSexIndex].name}}</view>
+          </picker>
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-footer_fixed-bottom weui-footer_fixed-fit">
+      <button class="weui-btn weui-btn__large" type="primary" form-type="submit">确 定</button>
+    </view>
+  </form>
+</view>
+
+<!-- 引用公共部分: footer -->
+<include src="/template/common/footer.wxml" />

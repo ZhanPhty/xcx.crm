@@ -1,0 +1,39 @@
+<!-- 引用公共部分: head -->
+<include src="/template/common/head.wxml" />
+
+<view class="page__bd">
+  <form bindsubmit="submitForm" bindreset="Resetform">
+    <block wx:if="{{oprType == 'A'}}">
+      <input name="clueId" hidden value="{{detailId}}" />
+    </block>
+    <block wx:elif="{{oprType == 'B'}}">
+      <input  name="contactId" hidden value="{{detailId}}" />
+    </block>
+    <block wx:else="{{oprType == 'C'}}">
+      <input name="clientId" hidden value="{{detailId}}" />
+    </block>
+    <input name="notes" hidden value="{{notes}}" />
+    <input name="oprType" hidden value="{{oprType}}" />
+    <view class="weui-cell_input ui-pw15">
+      <textarea class="ui-mt24" name="saleRecordContent" fixed="{{showFixed}}" show-confirm-bar="{{showConfirmBar}}" placeholder="请填写销售记录内容" maxlength="500" style="height: {{winHeigth/3}}px; width: 100%"></textarea>
+    </view>
+    <view class="weui-footer_fixed-bottom weui-footer_fixed-fit">
+      <view class="weui-cells">
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__bd">
+            <picker bindchange="bindRecordType" value="{{recordTypeIndex}}" range="{{saleRecordType}}" range-key="dictName">
+              <input hidden name="saleRecordType" value="{{saleRecordType[recordTypeIndex].dictValue}}" />
+              <view class="weui-select weui-select_in-select-after ui-pl15">{{saleRecordType[recordTypeIndex].dictName}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+      <view class="">
+        <button class="weui-btn weui-btn__large" type="primary" disabled="{{btnType}}" form-type="submit">发布销售记录</button>
+      </view>
+    </view>
+  </form>
+</view>
+
+<!-- 引用公共部分: footer -->
+<include src="/template/common/footer.wxml" />

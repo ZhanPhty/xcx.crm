@@ -1,0 +1,39 @@
+/* pages/saleRecord/saleRecordDetail.wxss */
+.sale-btn__font {
+  background-color: #fff;
+}
+
+.sale-btn__send[type="default"] {
+  background-color: #fff;
+  color: #377ade;
+}
+
+.sale-btn__send[type="default"][disabled] {
+  background-color: #fff;
+}
+
+.sale-btn__send::after {
+  border: 0;
+}
+
+.sale-btn__title {
+  background-color: #f4f4f4;
+  font-size: 28rpx;
+  color: #999;
+  line-height: 68rpx;
+  box-shadow: 0 -2px 2px rgba(118, 118, 118, .2)
+}
+
+.tran-btn__del {
+  position: relative;
+  margin-right: 48rpx;
+}
+
+.tran-btn__del::after {
+  content: '|';
+  position: absolute;
+  font-size: 14px;
+  top: 0;
+  margin-left: 14rpx;
+  color: #eee;
+}

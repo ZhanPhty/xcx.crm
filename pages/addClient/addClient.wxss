@@ -1,0 +1,4 @@
+/* pages/addClient/addClient.wxss */
+.clue-bd {
+  padding-bottom: 120rpx;
+}

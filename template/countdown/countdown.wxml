@@ -1,0 +1,23 @@
+<!-- 
+
+/**
+ * js 引用模块
+ */
+import { $countdown } from '../../template/xcx'
+
+/**
+ * 初始化$countdown
+ */
+this.countdown = $countdown.init({
+  date: +(new Date) + 9 * 1000,
+  onEnd() {
+    console.log('结束')
+  },
+  render(opt) {
+    this.setData({
+      time: this.leadingZeros(opt.sec)
+    })
+  }
+})
+
+-->

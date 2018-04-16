@@ -1,0 +1,46 @@
+<!-- 退回（仿web dialog） -->
+<template name="detailInvalid">
+  <view class="weui-popup {{data.show ? 'weui-popup__show' : ''}}" style="z-index: 400">
+    <view class="weui-popup__mask" />
+    <view class="weui-dialog__box" hidden="{{!data.show}}">
+      <form bindsubmit="{{submitForm}}">
+        <view class="weui-dialog_title">{{data.title}}</view>
+        <view class="weui-dialog_content">
+          <view class="weui-cells weui-cells_wrapped ui-ml0 ui-mr0">
+            <view class="weui-cell weui-cell_input ui-pr0">
+                <view class="weui-cell__bd">
+                  <picker bindchange="bindpoolId" value="{{poolIdIndex}}" range="{{poolId}}" range-key="poolName">
+                    <input hidden name="{{data.name}}" value="{{poolId[poolIdIndex].poolId}}" />
+                    <view class="weui-select weui-select_in-select-after">{{poolId[poolIdIndex].poolName}}</view>
+                  </picker>
+                </view>
+            </view>
+          </view>
+          <view class="weui-cells weui-cells_wrapped ui-ml0 ui-mr0">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__bd">
+                    <input
+                      class="weui-input" 
+                      name="oprDesc"
+                      placeholder="请输入退回原因"
+                    />
+                </view>
+            </view>
+          </view>
+        </view>
+        <view class="weui-dialog-btns">
+          <button 
+            class="weui-btn__item weui-dialog__cancel" 
+            hover-class="weui-btn__hover"
+            catchtap="{{hideDialog}}"
+          >取消</button>
+          <button 
+            class="weui-btn__item weui-dialog__del" 
+            hover-class="weui-btn__hover" 
+            form-type="submit"
+          >确定</button>
+        </view>
+      </form>
+    </view>
+  </view>
+</template>

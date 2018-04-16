@@ -1,0 +1,6 @@
+/* pages/transfer/transfer.wxss */
+
+/* 筛选搜索列表 */
+.search-list__left {
+  min-width: 230rpx;
+}

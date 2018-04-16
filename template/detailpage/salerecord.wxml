@@ -1,0 +1,25 @@
+<!-- 销售记录模块 -->
+<!-- <template is="detailSaleRecord" data="{{list: saleRecordVos}}" /> -->
+
+<template name="detailSaleRecord">
+  <view class="weui-panel weui-panel_access ui-mt0">
+    <view class="weui-panel__bd">
+      <block wx:for="{{list}}" wx:key="id4">
+        <view class="weui-media-box weui-media-box__left tran-list" data-sale-id="{{item.saleRecordId}}" bindtap="goRecordDetail">
+          <view class="weui-flex ui-mb6">
+            <view class="weui-flex__item tran-title">
+              <text class="tran-img" style="background-color: {{item.bgColor}}">{{item.firstZiMu}}</text>
+              <view class="weui-media-box__title tran-hd">{{item.createUser}}</view>
+              <text class="weui-tag weui-tag__small weui-tag__disabled weui-tag__plain">{{item.saleRecordType}}</text>
+            </view>
+            <view class="tran-time ui-pt4">{{item.createDate}}</view>
+          </view>
+          <view class="tran-cnt ui-ellipsis__l3">{{item.saleRecordContent}}</view>
+          <view class="ui-gray-dark ui-mt8 ui-font-12 ui-txt-right" wx:if="{{item.replyCnt != '0'}}">
+             <text>回复({{item.replyCnt}})</text> 
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</template>

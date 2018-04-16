@@ -1,0 +1,117 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "1.9.1",
+	"appid": "wxd1beb17b0a199f4d",
+	"projectname": "xcx_crm",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 8,
+			"list": [
+				{
+					"id": 0,
+					"name": "首页",
+					"pathName": "pages/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "登录页面",
+					"pathName": "pages/login/login",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "销售线索",
+					"pathName": "pages/pageClue/pageClue",
+					"query": ""
+				},
+				{
+					"id": 3,
+					"name": "新增销售线索",
+					"pathName": "pages/addClue/addClue",
+					"query": "clueId=614D5629A91031BBE0530100007F7295&pageType=update"
+				},
+				{
+					"id": 4,
+					"name": "销售线索详情",
+					"pathName": "pages/pageClue/pageClueDetail",
+					"query": "clueId=64179B912A4A6BC3E0530100007F342C"
+				},
+				{
+					"id": 5,
+					"name": "添加销售记录",
+					"pathName": "pages/saleRecord/addSaleRecord",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "联系人列表",
+					"pathName": "pages/selectContact/contactList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "客户",
+					"pathName": "pages/pageClient/client",
+					"query": ""
+				},
+				{
+					"id": 8,
+					"name": "客户详情",
+					"pathName": "pages/pageClient/clientDetail",
+					"query": "clientId=5A3685CB06673789E0530100007F0B2C"
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "pages/personal/personalCenter",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "商城推广",
+					"pathName": "pages/personal/extension",
+					"query": ""
+				},
+				{
+					"id": 11,
+					"name": "销售记录详情",
+					"pathName": "pages/saleRecord/saleRecordDetail",
+					"query": "saleId=6419A18C1EA96F71E0530100007F3AF6&oprType=A"
+				},
+				{
+					"id": 12,
+					"name": "修改客户详情",
+					"pathName": "pages/addClient/addClient",
+					"query": "id=624ED08B096B4E74E0530100007F0666&pageType=update"
+				},
+				{
+					"id": 13,
+					"name": "添加主营",
+					"pathName": "pages/pageClient/clientMainPro",
+					"query": "id=5A3685CB06673789E0530100007F0B2C&mainId=&oprType=C"
+				}
+			]
+		}
+	}
+}

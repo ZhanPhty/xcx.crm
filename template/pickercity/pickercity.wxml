@@ -1,0 +1,35 @@
+<!-- 
+
+/**
+ * wxml 引用模块
+ */
+<import src="/template/pickercity/pickercity.wxml"/>
+<template is="pickercity" data="{{ ...$xcx.pickercity.city }}"/>
+
+/* --------------------------------------------------------------------------------- */
+
+/**
+ * js 引用模块
+ */
+import { $pickercity } from '../../template/xcx'
+
+/**
+ * 初始化$pickercity
+ */
+this.pickercity = $pickercity.init('city', {
+  region: ['山西省', '大同市', '新荣区'],
+  onChange(e) {
+    console.log(e.cols[0][e.value[0]].code)
+    console.log(e.cols[1][e.value[1]].name)
+    console.log(e.cols[2][e.value[2]])
+  }
+})
+
+-->
+
+
+<template name="pickercity">
+  <picker mode="multiSelector" bindchange="{{bindchange}}" bindcolumnchange="{{bindMultiColumnChange}}" value="{{value}}" range="{{cols}}" range-key="{{rangeKey}}">
+    <view class="weui-select weui-select_in-select-after">{{cols[0][value[0]].name ? cols[0][value[0]].name : customItem}} {{cols[1][value[1]].name}} {{cols[2][value[2]].name}}</view>
+  </picker>
+</template>

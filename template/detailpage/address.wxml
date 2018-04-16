@@ -1,0 +1,35 @@
+<!-- 地址模块 -->
+<!-- <template is="detailAddress" data="{{list: addressList}}" /> -->
+
+<template name="detailAddress">
+  <block wx:for="{{list}}" wx:key="addressId">
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_text">
+          <view class="weui-media-box__title_in-text ui-font-17">{{item.province ? item.province : '--'}}{{item.city ? item.city : ''}}{{item.county ? item.county : ''}}{{item.address ? item.address : ''}}</view>
+          <view class="weui-media-box__desc ui-font-16">{{item.addressType}}</view>
+        </view>
+      </view>
+      <view class="weui-panel__ft tran-border-top">
+        <view class="weui-cell ">
+          <view class="weui-cell__bd">
+            <label bindtap="updateAddressDefault" data-address-id="{{item.addressId}}">
+              <view class="weui-agree__checkbox-icon">
+                <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="12" wx:if="{{item.isDefault === 'Y'}}"></icon>
+              </view>
+              <text class="ui-ml6">主地址</text>
+            </label>
+          </view>
+          <view class="weui-cell__ft">
+            <view class="ui-pw10 ui-mr16 tran-inblock" bindtap="consultMap" data-map="{{item.province}}{{item.city}}{{item.county}}{{item.address}}" hover-class="bindtap-hover">
+              <text class="icon-dingwei"></text>
+            </view>
+            <view class="ui-pw10 tran-inblock"  bindtap="updateAddress" data-address-id="{{item.addressId}}" hover-class="bindtap-hover">
+              <text class="icon-bianji"></text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</template>

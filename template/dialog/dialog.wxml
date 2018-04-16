@@ -1,0 +1,123 @@
+<!-- 
+
+/**
+ * wxml 引用模块
+ */
+<import src="/template/dialog/dialog.wxml"/>
+<template is="dialog" data="{{ ...$xcx.dialog }}"/>
+
+/* --------------------------------------------------------------------------------- */
+
+/**
+ * js 引用模块
+ */
+import { $dialog } from '../../template/xcx'
+
+/**
+ * 初始化$actionsheet
+ */
+this.dialog = $dialog.init({
+  title: '提示',
+  content: '提示内容',
+  buttons: [
+    {
+      text: `取消`,
+      type: `weui-dialog__cancel`,
+      onTap() { },
+    },
+    {
+      text: `现金支付`,
+      type: `weui-dialog__del`,
+      onTap() { },
+    },
+    {
+      text: `转发`,
+      type: `weui-dialog__ok`,
+      formType: `submit`,
+      onTap(e) {
+        this.dialog.hide()
+      },
+    }
+  ],
+  fieldContent: [
+    {
+      value: '',
+      type: 'textarea',
+      name: 'contentName',
+      placeholder: '请输入',
+    }
+  ]
+})
+
+-->
+
+
+<template name="dialog">
+  <view class="weui-popup weui-popup__show" wx:if="{{visible}}" style="z-index: 400">
+    <view class="weui-popup__mask {{animateCss[1]}}" />
+    <view class="weui-dialog__box {{animateCss[1]}}" animation="{{animation}}">
+      <form bindsubmit="{{submitDialogForm}}">
+        <view class="weui-dialog_title">{{title}}</view>
+        <view class="weui-dialog_content">
+          <view class="weui-dialog_content__title {{contentCenter ? 'ui-txt-center' : ''}}">{{content}}</view>
+          <block wx:for="{{fieldContent}}" wx:key="index" wx:if="{{fieldContent.length > 0}}">
+            <block wx:if="{{item.type === 'textarea'}}">
+              <textarea 
+                class="weui-dialog_textarea" 
+                maxlength="400" 
+                fixed 
+                auto-height
+                show-confirm-bar="{{!visible}}"
+                name="{{item.name}}" 
+                placeholder="{{item.placeholder}}" 
+                value="{{item.value}}" 
+                data-index="{{index}}"
+                bindfocus="{{buttonFoucs}}" 
+                bindblur="{{buttonBlur}}"
+              ></textarea>
+            </block>
+            <block wx:else>
+              <view class="weui-cells weui-cells_wrapped ui-ml0 ui-mr0">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__bd">
+                        <input
+                          wx:if="{{item.type != 'password'}}"
+                          class="weui-input" 
+                          name="{{item.name}}" 
+                          value="{{item.value}}" 
+                          type="{{item.type}}" 
+                          placeholder="{{item.placeholder}}" 
+                          data-index="{{index}}" 
+                        />
+                        <input 
+                          wx:else 
+                          class="weui-input" 
+                          name="{{item.name}}" 
+                          password 
+                          value="{{item.value}}" 
+                          type="{{item.type}}" 
+                          placeholder="{{item.placeholder}}" 
+                          data-index="{{index}}"
+                        />
+                    </view>
+                </view>
+              </view>
+            </block>
+          </block>
+        </view>
+
+        <view class="weui-dialog-btns {{verticalButtons ? 'wux-dialog__btns--vertical' : ''}}">
+          <block wx:for="{{buttons}}" wx:key="index">
+            <button 
+              class="weui-btn__item weui-dialog__cancel {{item.bold ? 'weui-btn__item--bold' : ''}} {{item.type}}" 
+              hover-class="weui-btn__hover" 
+              form-type="{{item.formType}}"
+              data-index="{{index}}" 
+              catchtap="{{buttonTapped}}"
+            >{{item.text}}</button>
+          </block>
+        </view>
+      </form>
+    </view>
+  </view>
+</template>

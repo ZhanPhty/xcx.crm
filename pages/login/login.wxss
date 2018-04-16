@@ -1,0 +1,32 @@
+/* 登录页样式 */
+page {
+  background-image: url("https://devcdn.maigangle.com/weiChat/images/login-bg.jpg");
+  background-color: #245cb1;
+  background-size: cover;
+  background-position: center center;
+}
+
+.login-cnt {
+  background-clip: red;
+}
+
+.login-cnt__title {
+  font-size: 20px;
+  color: #fff;
+  margin-top: 80rpx;
+  margin-bottom: 80rpx;
+  text-align: center;
+}
+
+.login-cnt__btn {
+  border-color: #fff!important;
+  color: #245cb1!important;
+}
+
+.login-attention {
+  position: absolute;
+  z-index: 9;
+  top: 2px;
+  right: 40px;
+  opacity: .9;
+}

@@ -1,0 +1,115 @@
+<!-- 引用页面 - 通用模板: <import src="/packages/public/tools.wxml" />  -->
+
+<!-- 1. ================================================ -->
+<!-- ==== 置顶按钮 - 绑定 goPageTop 事件 ==== -->
+<!-- 
+** js **
+page {
+  onPageScroll(e) {
+    this.setData({
+      pageScrollTop: e.scrollTop
+    })
+  },
+  goPageTop() {
+    wx.pageScrollTo({
+      scrollTop: 0
+    })
+  }
+} 
+
+** wxml **
+<template is="goPageTop" data="{{pageTop: pageScrollTop}}" />
+-->
+
+<template name="goPageTop">
+  <block wx:if="{{pageTop > 1000}}">
+    <view class="page-footer__top" bindtap="goPageTop">
+      <text class="icon-zhiding"></text>
+    </view>
+  </block>
+</template>
+
+
+<!-- 2. ================================================ -->
+<!-- ==== 上拉加载、下拉刷新loading模板 ==== -->
+<!-- 
+** js **
+page {
+  data: {
+    pageNo: 1,
+    saleRecordVos: [],
+    updateRefresh: false,
+    updateComplete: false,
+    firstRefresh: true,
+    refreshing: false
+  }
+} 
+
+** wxml **
+<template is="loadMore" data="{{list: saleRecordVos, first: firstRefresh, update: updateRefresh, complete: updateComplete}}" />
+-->
+
+<template name="loadMore">
+  <view class="weui-loadmore" wx:if="{{first}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+  <view class="weui-loadmore" wx:if="{{update}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+  <block wx:if="{{complete}}">
+    <view class="weui-loadmore weui-loadmore_line" wx:if="{{list.length > 0}}">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">全部加载完成</view>
+    </view>
+    <view class="weui-loadmore__tips weui-loadmore__nodata" wx:if="{{list.length == 0}}">
+      <text class="icon-zanwushuju weui-loadmore__nodata-icon"></text>
+    </view>
+  </block>
+</template>
+
+
+<!-- 3. ================================================ -->
+<!-- ==== 拉下“正在刷新”样式 ==== -->
+<!-- 
+** js **
+page {
+  scrollPageTop(e) {
+    if (e.detail.scrollTop < -60) {
+      this.setData({
+        scrollStatus: 'active'
+      })
+    } else {
+      this.setData({
+        scrollStatus: ''
+      })
+    }
+  },
+  scrollDownRefresh(){
+    this.setData({
+      scrollStatus: 'refresh'
+    })
+  }
+} 
+
+** wxml **
+<scroll-view scroll-y upper-threshold="-85"  bindscrolltoupper="scrollDownRefresh" bindscroll="scrollPageTop">
+  <template is="refresherLoad" data="{{status: scrollStatus}}" />
+</scroll-view>
+-->
+
+
+<template name="refresherLoad">
+  <view class="weui-refresher {{ status == 'active' ? 'weui-refresher--active' : '' }} {{status == 'refresh' ? 'weui-refresher--active weui-refresher--refreshing' : '' }}  {{status == 'refresh' ? 'weui-refresher--complete' : '' }}">
+		<view class="weui-refresher__content">
+			<view style="transform: translateZ(0);">
+				<text class="weui-refresher__icon--arrow-down weui-refresher__icon-pulling"></text>
+        <view class="weui-refresher__text-pulling">下拉刷新</view>
+			</view>
+			<view class="weui-refresher__icon-refreshing">
+				<text class="weui-refresher__icon--refresher"></text>
+			  <view class="weui-refresher__text-refreshing">正在刷新</view>
+			</view>
+		</view>
+	</view>
+</template>

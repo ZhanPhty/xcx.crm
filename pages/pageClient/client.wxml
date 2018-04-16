@@ -1,0 +1,95 @@
+<!-- 引用公共部分: head -->
+<include src="/template/common/head.wxml" />
+<import src="/template/tabs/tabs.wxml" />
+<import src="/template/public/tools.wxml" />
+
+<template is="tabs" data="{{ ...$xcx.tabs.list }}"/>
+
+<!-- 场景、筛选 -->
+<view class="cell-menu">
+  <block wx:if="{{sceneActive}}">
+    <view class="weui-popup weui-popup__show">
+      <view class="weui-popup__mask" bindtap="toggleMenuPopup" />
+      <view class="weui-popup__top cell-popup_top">
+        <view class="weui-cells weui-cells_after-title" bindtap="toggleMenuPopup">
+          <radio-group bindchange="sceneChage" name="changeType">
+            <label class="weui-cell weui-check__label" wx:for="{{menuList}}" wx:key="changeValue">
+              <radio class="weui-check" value="{{item.changeValue}}" checked="{{item.checked}}" />
+              <view class="weui-cell__bd {{item.checked ? 'ui-blue' : ''}}">{{item.changeName}}</view>
+              <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+                <icon class="weui-icon-radio" type="success_no_circle" size="16" color="#377ade"></icon>
+              </view>
+            </label>
+          </radio-group>
+        </view>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{searchActive}}">
+    <view class="weui-popup weui-popup__show">
+      <view class="weui-popup__mask" bindtap="toggleMenuPopup" />
+      <view class="weui-popup__top cell-popup_top">
+        <view class="weui-flex">
+          <view class="search-list__left">
+            <scroll-view scroll-y style="height: {{menuHeight}}px">
+              <view>224124545</view>
+              <view>224124545</view>
+              <view>224124545</view>
+              <view>bbbb</view>
+              <view>aaaa5</view>
+            </scroll-view>
+          </view>
+          <view class="weui-flex__item">
+            <scroll-view scroll-y style="height: {{menuHeight}}px">weui</scroll-view>
+          </view>
+        </view>
+        <view class="weui-flex">
+          <view class="weui-flex__item">
+            <button class="weui-btn__large" bindtap="resetBusiness">重置</button>
+          </view>
+          <view class="weui-flex__item">
+            <button class="weui-btn__large" bindtap="toggleMainPopup" type="primary">确定</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<!-- 列表 -->
+<view class="weui-tab__panel weui-logo-refresh">
+  <view class="weui-panel weui-panel_access cell-cnt">
+    <view class="weui-panel__bd">
+      <block wx:for="{{dataList}}" wx:key="*this">
+        <view class="weui-media-box weui-media-box__left cell-list" data-detailId="{{item.clientId}}" bindtap="bindGoDetail">
+          <view class="weui-flex ui-mb6">
+            <view class="weui-flex__item cell-title weui-media-box_appmsg">
+              <view class="weui-media-box__title cell-hd">{{item.clientName ? item.clientName: '--'}}</view>
+              <text class="weui-tag weui-tag__small weui-tag__disabled weui-tag__plain" wx:if="{{item.clientStatusName}}">{{item.clientStatusName}}</text>
+            </view>
+            <view class="cell-time">跟进：{{item.lastFollowDate ? item.lastFollowDate: '--'}}</view>
+          </view>
+          <view class="weui-flex">
+            <view class="weui-flex__item">
+              <view class="ui-mr4 cell-company" wx:if="{{item.contactName}}">{{item.contactName ? item.contactName: '--'}} /</view>
+              <view class="cell-link" catchtap="callPhone" hover-class="button-hover" data-mobile="{{item.mobile}}">
+                {{item.mobile ? item.mobile: '--'}}
+              </view>
+            </view>
+            <view class="cell-info">{{item.userName ? item.userName: '--'}}</view>
+          </view>
+          <view class="cell-info ui-mt4" wx:if="{{item.address}}">{{item.province ? item.province: ''}}{{item.city ? item.city: ''}}{{item.county ? item.county: ''}}{{item.address ? item.address: ''}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- loading -->
+  <template is="loadMore" data="{{list: dataList, first: firstRefresh, update: updateRefresh, complete: updateComplete}}" />
+</view>
+
+<!-- 置顶按钮 -->
+<template is="goPageTop" data="{{pageTop: pageScrollTop}}" />
+
+<!-- 引用公共部分: footer -->
+<include src="/template/common/footer.wxml" />

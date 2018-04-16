@@ -1,0 +1,57 @@
+<!-- 引用公共部分: head -->
+<include src="/template/common/head.wxml" />
+
+<!-- 列表 -->
+<view class="page__bd clue-bd ui-mr24">
+  <form bindsubmit="submitForm">
+    <scroll-view scroll-y enable-back-to-top scroll-into-view="{{toView}}" style="height: {{winHeight}}px;">
+      <block wx:for="{{contactArr}}" wx:for-index="letter" wx:for-item="contactList" wx:key="letter">
+        <view class="weui-cells__title" id="{{letter}}">{{letter}}</view>
+        <view class="weui-cells weui-cells__border weui-cells_after-title">
+          <checkbox-group bindchange="contactChange" name="{{letter}}" data-sort="{{letter}}">
+            <label class="weui-cell weui-check__label" wx:for="{{contactList}}" wx:key="index">
+              <checkbox class="weui-check" value="{{item.userId}}_{{item.userName}}" checked="{{item.checked}}" />
+              <view class="weui-cell__hd weui-check__hd_in-checkbox contact-checkbox">
+                <text class="icon-duoxuan" wx:if="{{!item.checked}}"></text>
+                <text class="icon-duoxuan-ed ui-blue" wx:if="{{item.checked}}"></text>
+              </view>
+              <view class="weui-cell__bd weui-media-box_appmsg">
+                <text class="contact-img" style="background-color: {{item.bgColor}}">{{item.firstZiMu}}</text>
+                {{item.userName}}
+              </view>
+            </label>
+          </checkbox-group>
+        </view>
+      </block>
+      <view class="contact-count">
+        <view class="ui-pt4 ui-pb4" wx:if="{{contactCount > 8}}">{{contactCount}}位联系人</view>
+      </view>
+      <view class="weui-loadmore" wx:if="{{firstRefresh}}">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在加载</view>
+      </view>
+    </scroll-view>
+
+    <view class="weui-footer_fixed-bottom weui-footer_fixed-fit">
+      <button class="weui-btn weui-btn__large" type="primary" form-type="submit">确定</button>
+    </view>
+  </form>
+
+  <view class="contact-sidebar">
+    <scroll-view scroll-y style="height: {{winHeight}}px">
+      <view class="sidebar-view" catchtouchmove="bindSideBar" catchtouchstart="bindSideBar" catchtouchend="bindSideHidden">
+        <view class="sidebar-item" wx:for="{{sliderRight}}" wx:key="id" style="height: {{(winHeight - 80) / sliderRight.length}}px">
+          <text>{{item}}</text>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="sidebar-prompt" wx:if="{{sidePrompt}}" style="top:{{sidePromptTop}}px">
+      <view class="sidebar-prompt__txt">{{toView}}</view>
+      <text class="icon-zuoyuan"></text>
+    </view>
+  </view>
+</view>
+
+
+<!-- 引用公共部分: footer -->
+<include src="/template/common/footer.wxml" />

@@ -1,0 +1,97 @@
+<!-- 引用公共部分: head -->
+<include src="/template/common/head.wxml" />
+<import src="/template/public/tools.wxml" />
+
+<!-- 列表 -->
+<view class="page__bd ui-mt12 clue-bd" wx:if="{{!firstSaleDetail}}">
+  <view class="weui-panel weui-panel_access">
+    <view class="weui-panel__bd">
+      <view class="weui-media-box weui-media-box__left tran-list">
+        <view class="weui-flex ui-mb6">
+          <view class="weui-flex__item tran-title">
+            <text class="tran-img" style="background-color: #a8d9ff">{{saleDateHd.firstZiMu}}</text>
+            <view class="weui-media-box__title tran-hd">{{saleDateHd.createUser}}</view>
+            <text class="weui-tag weui-tag__small weui-tag__disabled weui-tag__plain">{{saleDateHd.saleRecodeTypeName}}</text>
+          </view>
+          <view class="tran-time ui-pt4">{{saleDateHd.createDate}}</view>
+        </view>
+        <view class="tran-cnt">{{saleDateHd.saleRecodeContent}}</view>
+        <view class="ui-gray-dark ui-mt15 ui-pt10 ui-font-12 tran-border-top">
+          <text>
+            <block wx:if="{{oprType == 'A'}}">销售线索：{{saleDateHd.person}}</block>
+            <block wx:elif="{{oprType == 'B'}}">联系人：</block>
+            <block wx:else="{{oprType == 'C'}}">客户：{{saleDateHd.clientName}}</block>
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 回复列表 -->
+   <block wx:if="{{saleReply}}">
+    <view class="weui-panel weui-panel_access ui-mb32">
+      <view class="weui-panel__hd weui-media-box__left ui-gray-darker ui-font-14">回复({{saleReplyList.length}})</view>
+      <view class="weui-panel__bd">
+        <block wx:for="{{saleReplyList}}" wx:key="replyDate">
+          <view class="weui-media-box weui-media-box__left">
+            <view class="weui-flex ui-font-14">
+              <view class="weui-flex__item tran-title">
+                <view class="weui-media-box__title ui-gray-darker ui-font-14">{{item.replyUserName ? item.replyUserName : ''}}
+                  <text class="ui-ml4 ui-mr4">回复</text>
+                  <text class="ui-blue">@{{item.toUserName}}</text>
+                </view>
+              </view>
+              <view class="ui-gray tran-btn__del" 
+                data-reply-id="{{item.replyId}}" 
+                catchtap="delReplyList" 
+                hover-class="button-hover"
+                wx:if="{{item.replyUser === loginId}}"
+              ><text class="icon-shanchu ui-mr4"></text></view>
+              <view class="ui-gray"
+                data-to-user="{{item.replyUser}}"
+                data-to-user-name="{{item.replyUserName}}"
+                catchtap="replyListToUser" 
+                hover-class="button-hover"
+              ><text class="icon-bianji ui-mr4"></text>回复</view>
+            </view>
+            <view class="ui-gray ui-font-12">{{item.replyDate}}</view>
+            <view class="tran-cnt ui-mt10 ui-ellipsis__l3">{{item.replyDesc}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="weui-loadmore weui-loadmore_line">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无回复</view>
+    </view>
+  </block> 
+
+   <view class="weui-footer_fixed-bottom weui-footer_fixed-fit sale-btn__font">
+    <view class="weui-flex sale-btn__title" hidden="{{!isReplyList}}">
+      <view class="weui-flex__item ui-pw10">
+        正在回复 <text>{{toUserName}}</text>
+      </view>
+      <view class="weui-media-box_appmsg ui-pw10" bindtap="replyListCancel">
+        取消回复
+      </view>
+    </view>
+    <form bindsubmit="submitForm">
+      <view class="weui-flex tran-border-top">
+        <view class="weui-flex__item weui-media-box_appmsg ui-pt8 ui-pb4 ui-pw10">
+          <input name="toUser" value="{{toUser}}" hidden />
+          <textarea class="weui-textarea" name="replyDesc" focus="{{isReplyFocus}}" show-confirm-bar="{{false}}" auto-height fixed="{{true}}" maxlength="200" placeholder="{{salePlaceholder}}" bindinput="saleReplyInput" value="{{replyDesc}}" />
+        </view>
+        <view class="weui-media-box_appmsg">
+          <button class="weui-btn weui-btn__large sale-btn__send" type="default" disabled="{{saleBtnDis}}" form-type="submit">发布</button>
+        </view>
+      </view>
+    </form>
+  </view> 
+</view>
+
+<!-- loading -->
+<template is="loadMore" data="{{first: firstSaleDetail}}" />
+
+<!-- 引用公共部分: footer -->
+<include src="/template/common/footer.wxml" />

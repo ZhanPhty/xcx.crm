@@ -1,0 +1,41 @@
+<!-- 相关团队模块 -->
+<!-- <template is="detailTeam" data="{{listPerson: teamPersonArray, listFollow: teamFollowArray}}" /> -->
+
+<template name="detailTeam">
+  <view class="weui-cells__title ui-mt0 ui-pt12" wx:if="{{listPerson.length > 0}}">负责人</view>
+  <view class="weui-panel weui-panel_access ui-mt0">
+    <view class="weui-panel__bd">
+      <block wx:for="{{listPerson}}" wx:key="a">
+        <view class="weui-media-box weui-media-box__left tran-list" bindtap="">
+          <view class="weui-flex ui-mb6">
+            <view class="weui-flex__item tran-title">
+              <text class="tran-img" style="background-color: {{item.bgColor}}">{{item.firstZiMu}}</text>
+              <view class="weui-media-box__title">{{item.userName}}</view>
+            </view>
+            <view class="ui-gray-dark tran-toggle" bindtap="replaceCharge" hover-class="bindtap-hover">更换</view>
+          </view>
+          <view class="ui-gray-darker ui-pt4 ui-ellipsis__l3">职位：{{item.position ? item.position : '--'}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class="weui-cells__title" wx:if="{{listFollow.length > 0}}">联合跟进人</view>
+  <view class="weui-panel weui-panel_access ui-mt0 ui-mb12">
+    <view class="weui-panel__bd">
+      <block wx:for="{{listFollow}}" wx:key="b">
+        <view class="weui-media-box weui-media-box__left tran-list" bindtap="">
+          <view class="weui-flex ui-mb6">
+            <view class="weui-flex__item tran-title">
+              <text class="tran-img" style="background-color: {{item.bgColor}}">{{item.firstZiMu}}</text>
+              <view class="weui-media-box__title">{{item.userName}}</view>
+            </view>
+            <view class="ui-gray-dark tran-toggle" bindtap="removeJointFollow" data-detailId="{{item.userId}}_{{item.userName}}" hover-class="bindtap-hover">
+              <text class="icon-shanchu"></text>
+            </view>
+          </view>
+          <view class="ui-gray-darker ui-pt4 ui-ellipsis__l3">职位：{{item.position ? item.position : '--'}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+</template>

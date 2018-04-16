@@ -1,0 +1,34 @@
+<!-- 引用公共部分 -->
+<include src="/template/common/head.wxml" />
+
+<view class="login-cnt">
+  <view class="login-cnt__title">买钢乐CRM</view>
+  <form bindsubmit="submitForm">
+    <input name="token" hidden value="{{token}}"/>
+    <view class="weui-cells weui-cells_wrapped weui-cells_icon weui-cells__plain">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <icon class="icon-denglu"></icon>
+          <input name="loginName" class="weui-input" confirm-type="next" placeholder="请输入账户" />
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells weui-cells_wrapped weui-cells_icon weui-cells__plain">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <icon class="icon-mima"></icon>
+          <input name="passWord" class="weui-input" focus="{{blurPw}}" bindblur="blurPw" password="{{isPw}}" style="width: 75%" confirm-type="done" placeholder="请输入密码" />
+          <view class="login-attention" bindtap="togglePassWord">
+            <text class="icon-{{isPw ? 'attention' : 'attentionforbid'}}"></text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="page__bd_spacing ui-mt30">
+      <button class="weui-btn login-cnt__btn" type="default" form-type="submit">登录</button>
+    </view>
+  </form>
+</view>
+
+<!-- 引用公共部分 -->
+<include src="/template/common/footer.wxml" />

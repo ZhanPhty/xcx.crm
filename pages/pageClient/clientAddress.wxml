@@ -1,0 +1,90 @@
+<!-- 引用公共部分: head -->
+<include src="/template/common/head.wxml" />
+
+<!-- 内容 -->
+<view class="page__bd ui-mt12 clue-bd">
+  <form bindsubmit="submitForm" bindreset="Resetform">
+    <input name="token" hidden value="{{token}}" />
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label txt-required">地址类型</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindAddressType" value="{{addressTypeIndex}}" range="{{addressType}}" range-key="dictName">
+            <input hidden name="addressType" value="{{addressType[addressTypeIndex].dictValue}}" />
+            <view class="weui-select weui-select_in-select-after">{{addressType[addressTypeIndex].dictName}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label txt-required">选择城市</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker mode="region" bindchange="bindCityRegion" value="{{regionActive}}" custom-item="请选择">
+            <input hidden name="province" value="{{regionActive[0]}}" />
+            <input hidden name="city" value="{{regionActive[1]}}" />
+            <input hidden name="county" value="{{regionActive[2]}}" />
+            <view class="weui-select weui-select_in-select-after">
+              {{regionActive[0] ? regionActive[0] : ''}}-{{regionActive[1] ? regionActive[1] : ''}}-{{regionActive[2] ? regionActive[2] : ''}}
+            </view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label txt-required">详细地址</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{address}}" name="address" placeholder="请输入详细地址" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">邮政编码</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{postCode}}" name="postCode" type="number" placeholder="请输入邮政编码" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">联系人</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{person}}" name="person" placeholder="请输入联系人" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">联系号码</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{mobile}}" name="mobile" type="number" placeholder="请输入联系号码" />
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">备注</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" value="{{notes}}" name="notes" placeholder="请输入备注" />
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-footer_fixed-bottom weui-footer_fixed-fit">
+      <button class="weui-btn weui-btn__large" type="primary" form-type="submit">保 存</button>
+    </view>
+  </form>
+</view>
+
+<!-- 引用公共部分: footer -->
+<include src="/template/common/footer.wxml" />

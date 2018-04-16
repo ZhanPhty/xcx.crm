@@ -1,0 +1,22 @@
+<!-- 引用公共部分: head -->
+<include src="/template/common/head.wxml" />
+
+<!-- 列表 -->
+<view class="page__bd ui-pt12">
+  <view class="ui-txt-center">
+    <view class="ui-gray-darker ui-mt32">您的专属推广二维码</view>
+    <view class="ui-gray-dark ui-font-14 ui-mt6">点击预览可保存、分享二维码图片</view>
+    <view class="ui-mt32"></view>
+    <view class="img-box">
+        <image class="img-preview" bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image>
+    </view>
+    <view>扫一扫注册买钢乐</view>
+  </view>
+</view>
+
+<view class="canvas-box">
+  <canvas canvas-id="extensionCanvas"></canvas>
+</view>
+
+<!-- 引用公共部分: footer -->
+<include src="/template/common/footer.wxml" />

@@ -1,0 +1,160 @@
+<!--pages/pageClient/clientDetail.wxml-->
+<!-- 引用公共部分: head -->
+<include src="/template/common/head.wxml" />
+<import src="/template/tabs/tabs.wxml"/>
+<import src="/template/public/tools.wxml" />
+<import src="/template/actionsheet/actionsheet.wxml"/>
+<import src="/template/dialog/dialog.wxml"/>
+
+<!-- 引用详情页模块: detailPage -->
+<import src="/template/detailpage/salerecord.wxml" />
+<import src="/template/detailpage/address.wxml" />
+<import src="/template/detailpage/mainproduct.wxml" />
+<import src="/template/detailpage/team.wxml" />
+<import src="/template/detailpage/invaliddialog.wxml"/>
+
+<!-- tab -->
+<template is="tabs" data="{{ ...$xcx.tabs.detail }}"/>
+
+<!-- dialog -->
+<template is="dialog" data="{{ ...$xcx.dialog }}"/>
+
+<!-- 更多按钮 -->
+<template is="actionsheet" data="{{ ...$xcx.actionsheet }}"/>
+
+<!-- 退回弹窗 -->
+<template is="detailInvalid" data="{{data: invaliddata, poolId: poolId, poolIdIndex: poolIdIndex, hideDialog: 'hideDialog', submitForm: 'submitDialog'}}"/>
+
+<!-- 列表 -->
+<view class="page__bd clue-bd">
+  <view class="weui-tab__panel">
+    <swiper current="{{selectedId}}" duration="250" style="height:{{winHeight}}px" bindchange="handleTabSwiper">
+      <swiper-item>
+        <scroll-view scroll-y enable-back-to-top style="height:{{winHeight}}px">
+          <view class="weui-tab__content ui-pt12 ui-pb20">
+            <block wx:if="{{!firstDetail}}">
+              <view class="weui-cells weui-cells_after-title weui-cells_after_border">
+                <view class="weui-cell">
+                  <view class="weui-cell__bd">
+                    <view class="ui-font-16 ui-font-bold">{{dateilClue.clientName ? dateilClue.clientName : '--'}}</view>
+                    <view class="ui-font-14 ui-gray-darker ui-mt6">{{dateilClue.province ? dateilClue.province : '--'}}{{dateilClue.city ? dateilClue.city : ''}}{{dateilClue.county ? dateilClue.county : ''}}{{dateilClue.address ? dateilClue.address : ''}}
+                    </view>
+                    <view class="ui-font-12 ui-gray-dark ui-mt10">负责人：{{dateilClue.userName}}</view>
+                  </view>
+                  <view class="weui-cell__ft ui-blue" wx:if="{{dateilClue.address != null}}" bindtap="consultMap" data-map="{{dateilClue.province}}{{dateilClue.city}}{{dateilClue.county}}{{dateilClue.address}}" hover-class="button-hover">
+                    <text class="icon-ditu ui-font-28"></text>
+                  </view>
+                </view>
+              </view>
+              <view class="weui-cells ui-mt12 weui-cells_after-title weui-cells_after_border">
+                <view class="cells-title__hd">客户状况</view>
+                <view class="weui-cell" wx:for="{{dateilInfo}}" wx:key="id1">
+                  <view class="weui-cell__hd cell-label__left">{{item.name}}</view>
+                  <view class="weui-cell__bd">
+                    <view class="ui-font-16">{{item.data ? item.data : '--'}}</view>
+                  </view>
+                </view>
+              </view>
+              <view class="weui-cells ui-mt12 weui-cells_after-title weui-cells_after_border">
+                <view class="cells-title__hd">开户信息</view>
+                <view class="weui-cell" wx:for="{{dateilOpen}}" wx:key="id1">
+                  <view class="weui-cell__hd cell-label__left">{{item.name}}</view>
+                  <view class="weui-cell__bd">
+                    <view class="ui-font-16">{{item.data ? item.data : '--'}}</view>
+                  </view>
+                </view>
+              </view>
+              <view class="weui-cells ui-mt12 weui-cells_after-title weui-cells_after_border">
+                <view class="cells-title__hd">公司信息</view>
+                <view class="weui-cell" wx:for="{{dateilAuth}}" wx:key="id2">
+                  <view class="weui-cell__hd cell-label__left">{{item.name}}</view>
+                  <view class="weui-cell__bd">
+                    <view class="ui-font-16">{{item.data ? item.data : '--'}}</view>
+                  </view>
+                  <view class="weui-cell__ft ui-blue ui-pl6 ui-pr6" wx:if="{{item.name == '公司座机'}}" bindtap="callPhone" hover-class="button-hover" data-mobile="{{item.data}}">
+                    <text class="icon-{{item.data ? 'dianhua' : ''}} ui-font-20"></text>
+                  </view>
+                </view>
+              </view>
+              <view class="weui-cells ui-mt12 weui-cells_after-title weui-cells_after_border">
+                <view class="cells-title__hd">系统信息</view>
+                <view class="weui-cell" wx:for="{{dateilSys}}" wx:key="id3">
+                  <view class="weui-cell__hd cell-label__left" style="min-width: 140px;" wx:if="{{item.name == '负责人变更次数'}}">{{item.name}}</view>
+                  <view class="weui-cell__hd cell-label__left" style="min-width: 140px;" wx:elif="{{item.name == '客户冬眠次数'}}">{{item.name}}</view>
+                  <view class="weui-cell__hd cell-label__left" wx:else>{{item.name}}</view>
+                  <view class="weui-cell__bd">
+                    <view class="ui-font-16">{{item.data ? item.data : '--'}}
+                      <text class="ui-ml20">{{item.user ? item.user : ''}}</text>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </block>
+
+            <!-- loading -->
+            <template is="loadMore" data="{{first: firstDetail}}" />
+          </view>
+        </scroll-view>
+      </swiper-item>
+      <swiper-item>
+        <scroll-view scroll-y upper-threshold="-85" enable-back-to-top scroll-top="{{scrollTopRefresh}}" style="height:{{winHeight}}px" bindscrolltoupper="scrollDownRefresh" bindscrolltolower="scrollReachBottom" bindscroll="scrollPageTop">
+          <view class="weui-tab__content ui-pt12">
+            <!-- 下拉刷新样式 -->
+            <template is="refresherLoad" data="{{status: scrollStatus}}" />
+            <!-- 详情页-销售记录 -->
+            <template is="detailSaleRecord" data="{{list: saleRecordVos}}" />
+            <!-- loading -->
+            <template is="loadMore" data="{{list: saleRecordVos, first: firstRefresh, update: updateRefresh, complete: updateComplete}}" />
+          </view>
+        </scroll-view>
+        <!-- 回到顶部 -->
+        <template is="goPageTop" data="{{pageTop: pageScrollTop}}" />
+      </swiper-item>
+      <swiper-item>
+        <scroll-view scroll-y style="height:{{winHeight}}px">
+          <view class="weui-tab__content ui-pt12">
+            <!-- 地址模块 -->
+            <template is="detailAddress" data="{{list: addressList}}" />
+            <!-- loading -->
+            <template is="loadMore" data="{{list: addressList, first: firstAdd, complete: true}}" />
+          </view>
+        </scroll-view>
+      </swiper-item>
+      <swiper-item>
+        <scroll-view scroll-y style="height:{{winHeight}}px">
+          <view class="weui-tab__content ui-pt12">
+            <!-- 主营产品 -->
+            <template is="detailMainPro" data="{{list: mainBuisList}}" />
+            <!-- loading -->
+            <template is="loadMore" data="{{list: mainBuisList, first: firstMainBuis, complete: true}}" />
+          </view>
+        </scroll-view>
+      </swiper-item>
+      <swiper-item>
+        <scroll-view scroll-y enable-back-to-top style="height:{{winHeight}}px">
+          <view class="weui-tab__content">
+            <!-- 相关团队 -->
+            <template is="detailTeam" data="{{listPerson: teamPersonArray, listFollow: teamFollowArray}}" />
+            <!-- loading -->
+            <template is="loadMore" data="{{first: firstTeam}}" />
+          </view>
+        </scroll-view>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <view class="weui-footer_fixed-bottom weui-footer_fixed-fit clue-foot__items">
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+        <button class="weui-btn weui-btn__large ui-font-16" style="height: 100%" type="primary" form-type="submit" bindtap="addSaleRecord">添加销售记录</button>
+      </view>
+      <view class="clue-btn" hover-class="bindtap-hover" bindtap="bindMore">
+        <text class="icon-gengduo"></text>
+        <view class="ui-font-12">更多</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 引用公共部分: footer -->
+<include src="/template/common/footer.wxml" />
